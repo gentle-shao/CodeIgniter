@@ -118,9 +118,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		if ($composer_autoload === TRUE)
 		{
-			file_exists(APPPATH.'vendor/autoload.php')
-				? require_once(APPPATH.'vendor/autoload.php')
-				: log_message('error', '$config[\'composer_autoload\'] is set to TRUE but '.APPPATH.'vendor/autoload.php was not found.');
+			file_exists('vendor/autoload.php')
+				? require_once('vendor/autoload.php')
+				: log_message('error', '$config[\'composer_autoload\'] is set to TRUE but vendor/autoload.php was not found.');
 		}
 		elseif (file_exists($composer_autoload))
 		{
@@ -130,7 +130,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{
 			log_message('error', 'Could not find the specified $config[\'composer_autoload\'] path: '.$composer_autoload);
 		}
+	} else {
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Composer are force-enabled on this distribution of CodeIgniter. Please enable composer and make sure set-up correctly.';
+		exit(3); // EXIT_CONFIG
 	}
+
+/**
+ * ------------------------------------------------------
+ *  Initialize Dotenv variables.
+ * ------------------------------------------------------
+ */
+	$dotenv = \Dotenv\Dotenv::createUnsafeImmutable(BASEPATH . '../');
+	$dotenv->load();
 
 /*
  * ------------------------------------------------------
