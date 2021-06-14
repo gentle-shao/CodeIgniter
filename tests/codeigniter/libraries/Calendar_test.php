@@ -22,8 +22,8 @@ class Calendar_test extends CI_TestCase {
 			'month_type'	=>	'short',
 			'start_day'	=>	'monday'
 		));
-		$this->assertEquals('short', $this->calendar->month_type);
-		$this->assertEquals('monday', $this->calendar->start_day);
+		$this->assertEqualsWithSpeaceInSensitive('short', $this->calendar->month_type);
+		$this->assertEqualsWithSpeaceInSensitive('monday', $this->calendar->start_day);
 	}
 
 	// --------------------------------------------------------------------
@@ -63,7 +63,7 @@ class Calendar_test extends CI_TestCase {
 
 </table>';
 
-		$this->assertEquals($no_events, $this->calendar->generate(2011, 9));
+		$this->assertEqualsWithSpeaceInSensitive($no_events, $this->calendar->generate(2011, 9));
 
 		$data = array(
 			3  => 'http://example.com/news/article/2006/03/',
@@ -105,7 +105,7 @@ class Calendar_test extends CI_TestCase {
 
 </table>';
 
-		$this->assertEquals($events, $this->calendar->generate(2011, 9, $data));
+		$this->assertEqualsWithSpeaceInSensitive($events, $this->calendar->generate(2011, 9, $data));
 	}
 
 	// --------------------------------------------------------------------
@@ -113,17 +113,17 @@ class Calendar_test extends CI_TestCase {
 	public function test_get_month_name()
 	{
 		$this->calendar->month_type = NULL;
-		$this->assertEquals('January', $this->calendar->get_month_name('01'));
+		$this->assertEqualsWithSpeaceInSensitive('January', $this->calendar->get_month_name('01'));
 
 		$this->calendar->month_type = 'short';
-		$this->assertEquals('Jan', $this->calendar->get_month_name('01'));
+		$this->assertEqualsWithSpeaceInSensitive('Jan', $this->calendar->get_month_name('01'));
 	}
 
 	// --------------------------------------------------------------------
 
 	public function test_get_day_names()
 	{
-		$this->assertEquals(array(
+		$this->assertEqualsWithSpeaceInSensitive(array(
 			'Sunday',
 			'Monday',
 			'Tuesday',
@@ -133,7 +133,7 @@ class Calendar_test extends CI_TestCase {
 			'Saturday'
 		), $this->calendar->get_day_names('long'));
 
-		$this->assertEquals(array(
+		$this->assertEqualsWithSpeaceInSensitive(array(
 			'Sun',
 			'Mon',
 			'Tue',
@@ -145,7 +145,7 @@ class Calendar_test extends CI_TestCase {
 
 		$this->calendar->day_type = NULL;
 
-		$this->assertEquals(array(
+		$this->assertEqualsWithSpeaceInSensitive(array(
 			'Su',
 			'Mo',
 			'Tu',
@@ -160,29 +160,29 @@ class Calendar_test extends CI_TestCase {
 
 	public function test_adjust_date()
 	{
-		$this->assertEquals(array('month' => 8, 'year' => 2012), $this->calendar->adjust_date(8, 2012));
-		$this->assertEquals(array('month' => 1, 'year' => 2013), $this->calendar->adjust_date(13, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(array('month' => 8, 'year' => 2012), $this->calendar->adjust_date(8, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(array('month' => 1, 'year' => 2013), $this->calendar->adjust_date(13, 2012));
 	}
 
 	// --------------------------------------------------------------------
 
 	public function test_get_total_days()
 	{
-		$this->assertEquals(0, $this->calendar->get_total_days(13, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(0, $this->calendar->get_total_days(13, 2012));
 
-		$this->assertEquals(31, $this->calendar->get_total_days(1, 2012));
-		$this->assertEquals(28, $this->calendar->get_total_days(2, 2011));
-		$this->assertEquals(29, $this->calendar->get_total_days(2, 2012));
-		$this->assertEquals(31, $this->calendar->get_total_days(3, 2012));
-		$this->assertEquals(30, $this->calendar->get_total_days(4, 2012));
-		$this->assertEquals(31, $this->calendar->get_total_days(5, 2012));
-		$this->assertEquals(30, $this->calendar->get_total_days(6, 2012));
-		$this->assertEquals(31, $this->calendar->get_total_days(7, 2012));
-		$this->assertEquals(31, $this->calendar->get_total_days(8, 2012));
-		$this->assertEquals(30, $this->calendar->get_total_days(9, 2012));
-		$this->assertEquals(31, $this->calendar->get_total_days(10, 2012));
-		$this->assertEquals(30, $this->calendar->get_total_days(11, 2012));
-		$this->assertEquals(31, $this->calendar->get_total_days(12, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(1, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(28, $this->calendar->get_total_days(2, 2011));
+		$this->assertEqualsWithSpeaceInSensitive(29, $this->calendar->get_total_days(2, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(3, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(30, $this->calendar->get_total_days(4, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(5, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(30, $this->calendar->get_total_days(6, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(7, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(8, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(30, $this->calendar->get_total_days(9, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(10, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(30, $this->calendar->get_total_days(11, 2012));
+		$this->assertEqualsWithSpeaceInSensitive(31, $this->calendar->get_total_days(12, 2012));
 	}
 
 	// --------------------------------------------------------------------
@@ -216,7 +216,7 @@ class Calendar_test extends CI_TestCase {
 			'cal_cell_end_other'		=> '</td>'
 		);
 
-		$this->assertEquals($array, $this->calendar->default_template());
+		$this->assertEqualsWithSpeaceInSensitive($array, $this->calendar->default_template());
 	}
 
 }

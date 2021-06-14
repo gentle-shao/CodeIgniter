@@ -11,24 +11,24 @@ class Html_helper_test extends CI_TestCase {
 
 	public function test_heading()
 	{
-		$this->assertEquals('<h1>foobar</h1>', heading('foobar'));
-		$this->assertEquals('<h2 class="bar">foobar</h2>', heading('foobar', 2, 'class="bar"'));
+		$this->assertEqualsWithSpeaceInSensitive('<h1>foobar</h1>', heading('foobar'));
+		$this->assertEqualsWithSpeaceInSensitive('<h2 class="bar">foobar</h2>', heading('foobar', 2, 'class="bar"'));
 	}
 
 	public function test_heading_array_attributes()
 	{
 		// Test array of attributes
-		$this->assertEquals('<h2 class="bar" id="foo">foobar</h2>', heading('foobar', 2, array('class' => 'bar', 'id' => 'foo')));
+		$this->assertEqualsWithSpeaceInSensitive('<h2 class="bar" id="foo">foobar</h2>', heading('foobar', 2, array('class' => 'bar', 'id' => 'foo')));
 	}
 
 	public function test_heading_object_attributes()
 	{
 		// Test array of attributes
-		$this->assertEquals('<h2 class="bar" id="foo">foobar</h2>', heading('foobar', 2, array('class' => 'bar', 'id' => 'foo')));
+		$this->assertEqualsWithSpeaceInSensitive('<h2 class="bar" id="foo">foobar</h2>', heading('foobar', 2, array('class' => 'bar', 'id' => 'foo')));
 		$test = new stdClass;
 		$test->class = "bar";
 		$test->id = "foo";
-		$this->assertEquals('<h2 class="bar" id="foo">foobar</h2>', heading('foobar', 2, $test));
+		$this->assertEqualsWithSpeaceInSensitive('<h2 class="bar" id="foo">foobar</h2>', heading('foobar', 2, $test));
 	}
 
 	// ------------------------------------------------------------------------
@@ -36,13 +36,13 @@ class Html_helper_test extends CI_TestCase {
 	public function test_img()
 	{
 		$this->ci_set_config('base_url', 'http://localhost/');
-		$this->assertEquals('<img src="http://localhost/test" alt="" />', img("test"));
-		$this->assertEquals('<img src="data:foo/bar,baz" alt="" />', img("data:foo/bar,baz"));
-		$this->assertEquals('<img src="http://localhost/data://foo" alt="" />', img("data://foo"));
-		$this->assertEquals('<img src="//foo.bar/baz" alt="" />', img("//foo.bar/baz"));
-		$this->assertEquals('<img src="http://foo.bar/baz" alt="" />', img("http://foo.bar/baz"));
-		$this->assertEquals('<img src="https://foo.bar/baz" alt="" />', img("https://foo.bar/baz"));
-		$this->assertEquals('<img src="ftp://foo.bar/baz" alt="" />', img("ftp://foo.bar/baz"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="http://localhost/test" alt="" />', img("test"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="data:foo/bar,baz" alt="" />', img("data:foo/bar,baz"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="http://localhost/data://foo" alt="" />', img("data://foo"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="//foo.bar/baz" alt="" />', img("//foo.bar/baz"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="http://foo.bar/baz" alt="" />', img("http://foo.bar/baz"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="https://foo.bar/baz" alt="" />', img("https://foo.bar/baz"));
+		$this->assertEqualsWithSpeaceInSensitive('<img src="ftp://foo.bar/baz" alt="" />', img("ftp://foo.bar/baz"));
 	}
 
 	// ------------------------------------------------------------------------
@@ -60,7 +60,7 @@ EOH;
 		$expect = ltrim($expect);
 		$list = array('foo', 'bar');
 
-		$this->assertEquals(ltrim($expect), ul($list));
+		$this->assertEqualsWithSpeaceInSensitive(ltrim($expect), ul($list));
 
 		$expect = <<<EOH
 <ul class="test">
@@ -72,31 +72,31 @@ EOH;
 
 		$expect = ltrim($expect);
 
-		$this->assertEquals($expect, ul($list, 'class="test"'));
+		$this->assertEqualsWithSpeaceInSensitive($expect, ul($list, 'class="test"'));
 
-		$this->assertEquals($expect, ul($list, array('class' => 'test')));
+		$this->assertEqualsWithSpeaceInSensitive($expect, ul($list, array('class' => 'test')));
 	}
 
 	// ------------------------------------------------------------------------
 
 	public function test_meta()
 	{
-		$this->assertEquals(
+		$this->assertEqualsWithSpeaceInSensitive(
 			"<meta name=\"test\" content=\"foo\" />\n",
 			meta('test', 'foo')
 		);
 
-		$this->assertEquals(
+		$this->assertEqualsWithSpeaceInSensitive(
 			"<meta name=\"foo\" content=\"\" />\n",
 			meta(array('name' => 'foo'))
 		);
 
-		$this->assertEquals(
+		$this->assertEqualsWithSpeaceInSensitive(
 			"<meta charset=\"foo\" />\n",
 			meta(array('name' => 'foo', 'type' => 'charset'))
 		);
 
-		$this->assertEquals(
+		$this->assertEqualsWithSpeaceInSensitive(
 			"<meta charset=\"foo\" />\n",
 			meta(array('name' => 'foo', 'type' => 'charset'))
 		);

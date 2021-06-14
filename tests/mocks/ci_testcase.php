@@ -1,6 +1,8 @@
 <?php
 
-class CI_TestCase extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CI_TestCase extends TestCase {
 
 	public $ci_vfs_root;
 	public $ci_app_root;
@@ -381,4 +383,16 @@ class CI_TestCase extends PHPUnit_Framework_TestCase {
 		return parent::__call($method, $args);
 	}
 
+	/**
+	 * Compare string with speace insensitive.
+	 *
+	 * @param mixed $expected
+	 * @param mixed $actual
+	 *
+	 * @return [type]
+	 */
+	protected function assertEqualsWithSpeaceInSensitive($expected, $actual)
+	{
+		return $this->assertEquals(preg_replace('/\s+/', ' ', $expected), preg_replace('/\s+/', ' ', $actual));
+	}
 }

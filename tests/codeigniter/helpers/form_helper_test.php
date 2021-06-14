@@ -17,7 +17,7 @@ class Form_helper_test extends CI_TestCase
 
 EOH;
 
-		$this->assertEquals($expected, form_hidden('username', 'johndoe'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_hidden('username', 'johndoe'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -38,7 +38,7 @@ EOH;
 			'style'       => 'width:50%',
 		);
 
-		$this->assertEquals($expected, form_input($data));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_input($data));
 	}
 
 	// ------------------------------------------------------------------------
@@ -50,7 +50,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_password('password'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_password('password'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -62,7 +62,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_upload('attachment'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_upload('attachment'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -74,7 +74,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_textarea('notes', 'Notes'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_textarea('notes', 'Notes'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -98,7 +98,7 @@ EOH;
 			'xlarge'	=> 'Extra Large Shirt',
 		);
 
-		$this->assertEquals($expected, form_dropdown('shirts', $options, 'large'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_dropdown('shirts', $options, 'large'));
 
 		$expected = <<<EOH
 <select name="shirts" multiple="multiple">
@@ -112,7 +112,7 @@ EOH;
 
 		$shirts_on_sale = array('small', 'large');
 
-		$this->assertEquals($expected, form_dropdown('shirts', $options, $shirts_on_sale));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_dropdown('shirts', $options, $shirts_on_sale));
 
 		$options = array(
 			'Swedish Cars' => array(
@@ -139,7 +139,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_dropdown('cars', $options, array('volvo', 'audi')));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_dropdown('cars', $options, array('volvo', 'audi')));
 	}
 
 	// ------------------------------------------------------------------------
@@ -163,7 +163,7 @@ EOH;
 			'xlarge'	=> 'Extra Large Shirt',
 		);
 
-		$this->assertEquals($expected, form_multiselect('shirts[]', $options, array('med', 'large')));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_multiselect('shirts[]', $options, array('med', 'large')));
 	}
 
 	// ------------------------------------------------------------------------
@@ -176,7 +176,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_fieldset('Address Information'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_fieldset('Address Information'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -187,7 +187,7 @@ EOH;
 </fieldset></div></div>
 EOH;
 
-		$this->assertEquals($expected, form_fieldset_close('</div></div>'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_fieldset_close('</div></div>'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -199,7 +199,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_checkbox('newsletter', 'accept', TRUE));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_checkbox('newsletter', 'accept', TRUE));
 	}
 
 	// ------------------------------------------------------------------------
@@ -211,7 +211,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_radio('newsletter', 'accept', TRUE));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_radio('newsletter', 'accept', TRUE));
 	}
 
 	// ------------------------------------------------------------------------
@@ -223,7 +223,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_submit('mysubmit', 'Submit Post!'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_submit('mysubmit', 'Submit Post!'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -234,7 +234,7 @@ EOH;
 <label for="username">What is your Name</label>
 EOH;
 
-		$this->assertEquals($expected, form_label('What is your Name', 'username'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_label('What is your Name', 'username'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -246,7 +246,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_reset('myreset', 'Reset'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_reset('myreset', 'Reset'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -258,7 +258,7 @@ EOH;
 
 EOH;
 
-		$this->assertEquals($expected, form_button('name', 'content'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_button('name', 'content'));
 	}
 
 	// ------------------------------------------------------------------------
@@ -269,6 +269,6 @@ EOH;
 </form></div></div>
 EOH;
 
-		$this->assertEquals($expected, form_close('</div></div>'));
+		$this->assertEqualsWithSpeaceInSensitive($expected, form_close('</div></div>'));
 	}
 }

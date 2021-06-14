@@ -28,7 +28,8 @@ class Log_test extends CI_TestCase {
 		$this->assertEquals($date_fmt->getValue($instance), 'd.m.Y');
 		$this->assertEquals($file_ext->getValue($instance), 'php');
 		$this->assertEquals($file_perms->getValue($instance), 0644);
-		$this->assertFalse($enabled->getValue($instance));
+		// Note: CI_Log attempts create log_path even not exists, so it will be true.
+		$this->assertEquals($enabled->getValue($instance), TRUE);
 
 		$this->ci_set_config('log_path', '');
 		$this->ci_set_config('log_threshold', '0');
