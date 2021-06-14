@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = getenv('APP_URL');
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = getenv('APP_INDEX');
 
 /*
 |--------------------------------------------------------------------------
@@ -117,28 +117,6 @@ $config['enable_hooks'] = FALSE;
 |
 */
 $config['subclass_prefix'] = 'MY_';
-
-/*
-|--------------------------------------------------------------------------
-| Composer auto-loading
-|--------------------------------------------------------------------------
-|
-| Enabling this setting will tell CodeIgniter to look for a Composer
-| package auto-loader script in vendor/autoload.php.
-|
-|	$config['composer_autoload'] = TRUE;
-|
-| Or if you have your vendor/ directory located somewhere else, you
-| can opt to set a specific path as well:
-|
-|	$config['composer_autoload'] = '/path/to/vendor/autoload.php';
-|
-| For more information about Composer, please visit https://getcomposer.org/
-|
-| Note: This will NOT disable or override the CodeIgniter-specific
-|	autoloading (application/config/autoload.php)
-*/
-$config['composer_autoload'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -314,7 +292,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/userguide3/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = getenv('APP_KEY');
 
 /*
 |--------------------------------------------------------------------------
@@ -367,9 +345,9 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$config['sess_driver'] = 'files';
+$config['sess_driver'] = getenv('SESSION_DRIVER');
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 7200;
+$config['sess_expiration'] = getenv('SESSION_LIFETIME');
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;

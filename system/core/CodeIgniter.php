@@ -90,6 +90,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
  * ------------------------------------------------------
+ *  Should we use a Composer autoloader?
+ * ------------------------------------------------------
+ */
+	if (file_exists('vendor/autoload.php'))
+	{
+		require_once('vendor/autoload.php');
+	} else {
+		log_message('error', 'Autoload file vendor/autoload.php was not found.');
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Composer are force-enabled on this distribution of CodeIgniter. Please enable composer and make sure set-up correctly.';
+		exit(3); // EXIT_CONFIG
+	}
+
+/**
+ * ------------------------------------------------------
+ *  Initialize Dotenv variables.
+ * ------------------------------------------------------
+ */
+	$dotenv = \Dotenv\Dotenv::createUnsafeImmutable(BASEPATH . '../');
+	$dotenv->load();
+
+/*
+ * ------------------------------------------------------
  *  Set the subclass_prefix
  * ------------------------------------------------------
  *
@@ -108,41 +131,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		get_config(array('subclass_prefix' => $assign_to_config['subclass_prefix']));
 	}
-
-/*
- * ------------------------------------------------------
- *  Should we use a Composer autoloader?
- * ------------------------------------------------------
- */
-	if ($composer_autoload = config_item('composer_autoload'))
-	{
-		if ($composer_autoload === TRUE)
-		{
-			file_exists('vendor/autoload.php')
-				? require_once('vendor/autoload.php')
-				: log_message('error', '$config[\'composer_autoload\'] is set to TRUE but vendor/autoload.php was not found.');
-		}
-		elseif (file_exists($composer_autoload))
-		{
-			require_once($composer_autoload);
-		}
-		else
-		{
-			log_message('error', 'Could not find the specified $config[\'composer_autoload\'] path: '.$composer_autoload);
-		}
-	} else {
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-		echo 'Composer are force-enabled on this distribution of CodeIgniter. Please enable composer and make sure set-up correctly.';
-		exit(3); // EXIT_CONFIG
-	}
-
-/**
- * ------------------------------------------------------
- *  Initialize Dotenv variables.
- * ------------------------------------------------------
- */
-	$dotenv = \Dotenv\Dotenv::createUnsafeImmutable(BASEPATH . '../');
-	$dotenv->load();
 
 /*
  * ------------------------------------------------------
