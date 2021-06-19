@@ -1,11 +1,11 @@
 <?php
 
+use CodeIgniter\Core\Config;
+
 class Config_test extends CI_TestCase {
 
 	public function set_up()
 	{
-		$cls =& $this->ci_core_class('cfg');
-
 		// set predictable config values
 		$this->cfg = array(
 			'index_page'		=> 'index.php',
@@ -14,7 +14,7 @@ class Config_test extends CI_TestCase {
 		);
 		$this->ci_set_config($this->cfg);
 
-		$this->config = new $cls;
+		$this->config = new Config;
 	}
 
 	// --------------------------------------------------------------------
@@ -68,7 +68,7 @@ class Config_test extends CI_TestCase {
 		$this->ci_set_config('base_url', '');
 
 		// Rerun constructor
-		$cls =& $this->ci_core_class('cfg');
+		$cls = new Config;
 		$this->config = new $cls;
 
 		// Test default base

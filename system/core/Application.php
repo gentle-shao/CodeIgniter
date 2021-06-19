@@ -61,7 +61,7 @@ class Application extends Container
         $this->loadEnvironmentVariables();
         $this->setSubClassPrefix();
         $this->startTimer();
-        // $this->instantiateConfiguration();
+        $this->instantiateConfiguration();
     }
 
     /**

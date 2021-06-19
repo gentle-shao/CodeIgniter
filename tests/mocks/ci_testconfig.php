@@ -1,6 +1,7 @@
 <?php
 
-class CI_TestConfig extends CI_Config {
+use CodeIgniter\Core\Config;
+class CI_TestConfig extends Config {
 
 	public $config = array();
 	public $_config_paths = array(APPPATH);

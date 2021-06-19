@@ -1,11 +1,12 @@
 <?php
 
+use CodeIgniter\Core\Config;
 class Mock_Core_URI extends CI_URI {
 
 	public function __construct()
 	{
 		$test = CI_TestCase::instance();
-		$cls =& $test->ci_core_class('cfg');
+		$cls = new Config;
 
 		// set predictable config values
 		$test->ci_set_config(array(
