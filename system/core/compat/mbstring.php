@@ -35,7 +35,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
 
 /**
  * PHP ext/mbstring compatibility package
@@ -49,6 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 // ------------------------------------------------------------------------
+
+define('MB_ENABLED', extension_loaded('mbstring'));
 
 if (MB_ENABLED === TRUE)
 {

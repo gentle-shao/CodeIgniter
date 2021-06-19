@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * In PHPUnit procedure, vendor/autoload.php will be loaded very early.
+ * So this file should be loaded before the system/core/common, but with some conditions.
+ * Otherwise, the testcase will broke due to them used core common instead of mock common.
+ *
+ * If 'CI_VERSION' constant defined, application are booted from system/Core/CodeIgniter.php
+ * which means these mock global functions should not be defined.
+ */
+if (defined('CI_VERSION')) {
+	return;
+}
+
 // Set up the global CI functions in their most minimal core representation
 
 if ( ! function_exists('get_instance'))

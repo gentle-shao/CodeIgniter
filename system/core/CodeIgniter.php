@@ -59,25 +59,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
  * ------------------------------------------------------
- *  Load the framework constants
+ *  We should use a Composer autoloader.
  * ------------------------------------------------------
  */
-	if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants.php'))
-	{
-		require_once(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
-	}
-
-	if (file_exists(APPPATH.'config/constants.php'))
-	{
-		require_once(APPPATH.'config/constants.php');
-	}
-
-/*
- * ------------------------------------------------------
- *  Load the global functions
- * ------------------------------------------------------
- */
-	require_once(BASEPATH.'core/Common.php');
+	require_once('vendor/autoload.php');
 
 /*
  * ------------------------------------------------------
@@ -87,21 +72,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	set_error_handler('_error_handler');
 	set_exception_handler('_exception_handler');
 	register_shutdown_function('_shutdown_handler');
-
-/*
- * ------------------------------------------------------
- *  Should we use a Composer autoloader?
- * ------------------------------------------------------
- */
-	if (file_exists('vendor/autoload.php'))
-	{
-		require_once('vendor/autoload.php');
-	} else {
-		log_message('error', 'Autoload file vendor/autoload.php was not found.');
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-		echo 'Composer are force-enabled on this distribution of CodeIgniter. Please enable composer and make sure set-up correctly.';
-		exit(3); // EXIT_CONFIG
-	}
 
 /**
  * ------------------------------------------------------
@@ -195,17 +165,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	if (extension_loaded('mbstring'))
 	{
-		define('MB_ENABLED', TRUE);
 		// mbstring.internal_encoding is deprecated starting with PHP 5.6
 		// and it's usage triggers E_DEPRECATED messages.
 		@ini_set('mbstring.internal_encoding', $charset);
 		// This is required for mb_convert_encoding() to strip invalid characters.
 		// That's utilized by CI_Utf8, but it's also done for consistency with iconv.
 		mb_substitute_character('none');
-	}
-	else
-	{
-		define('MB_ENABLED', FALSE);
 	}
 
 	// There's an ICONV_IMPL constant, but the PHP manual says that using
@@ -226,17 +191,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		ini_set('php.internal_encoding', $charset);
 	}
-
-/*
- * ------------------------------------------------------
- *  Load compatibility features
- * ------------------------------------------------------
- */
-
-	require_once(BASEPATH.'core/compat/mbstring.php');
-	require_once(BASEPATH.'core/compat/hash.php');
-	require_once(BASEPATH.'core/compat/password.php');
-	require_once(BASEPATH.'core/compat/standard.php');
 
 /*
  * ------------------------------------------------------

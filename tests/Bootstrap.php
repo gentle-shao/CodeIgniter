@@ -36,21 +36,12 @@ defined('ENVIRONMENT') OR define('ENVIRONMENT', 'development');
 // Set localhost "remote" IP
 isset($_SERVER['REMOTE_ADDR']) OR $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-// Prep our test environment
-include_once $dir.'/mocks/core/common.php';
-include_once SYSTEM_PATH.'core/Common.php';
-
 ini_set('default_charset', 'UTF-8');
 
 if (extension_loaded('mbstring'))
 {
-	defined('MB_ENABLED') OR define('MB_ENABLED', TRUE);
 	@ini_set('mbstring.internal_encoding', 'UTF-8');
 	mb_substitute_character('none');
-}
-else
-{
-	defined('MB_ENABLED') OR define('MB_ENABLED', FALSE);
 }
 
 if (extension_loaded('iconv'))
@@ -64,11 +55,6 @@ else
 }
 
 is_php('5.6') && ini_set('php.internal_encoding', 'UTF-8');
-
-include_once SYSTEM_PATH.'core/compat/mbstring.php';
-include_once SYSTEM_PATH.'core/compat/hash.php';
-include_once SYSTEM_PATH.'core/compat/password.php';
-include_once SYSTEM_PATH.'core/compat/standard.php';
 
 include_once $dir.'/mocks/autoloader.php';
 spl_autoload_register('autoload');

@@ -35,7 +35,6 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Common Functions
@@ -50,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 // ------------------------------------------------------------------------
-
+	
 if ( ! function_exists('is_php'))
 {
 	/**
@@ -256,8 +255,7 @@ if ( ! function_exists('get_config'))
 			elseif ( ! $found)
 			{
 				set_status_header(503);
-				echo 'The configuration file does not exist.';
-				exit(3); // EXIT_CONFIG
+				throw new RuntimeException('The configuration file does not exist.');
 			}
 
 			// Does the $config array exist in the file?

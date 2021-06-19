@@ -14,6 +14,21 @@
 		"php": ">=5.4.8",
 		"vlucas/phpdotenv": "^5.3"
 	},
+	"autoload": {
+		"files": [
+			"tests/mocks/core/common.php",
+			"system/Core/Common.php",
+			"system/Core/constants.php",
+			"system/Core/compat/mbstring.php",
+			"system/Core/compat/hash.php",
+			"system/Core/compat/password.php",
+			"system/Core/compat/standard.php"
+		],
+    	"psr-4": {
+    		"CodeIgniter\\": "system",
+			"App\\": "application"
+    	}
+    },
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
