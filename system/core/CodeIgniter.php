@@ -37,6 +37,8 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Dotenv\Dotenv;
+
 /**
  * System Initialization File
  *
@@ -78,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *  Initialize Dotenv variables.
  * ------------------------------------------------------
  */
-	$dotenv = \Dotenv\Dotenv::createUnsafeImmutable(BASEPATH . '../');
+	$dotenv = Dotenv::createUnsafeImmutable(BASEPATH . '../');
 	$dotenv->load();
 
 /*
