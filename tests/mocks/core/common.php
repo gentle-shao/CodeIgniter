@@ -5,10 +5,10 @@
  * So this file should be loaded before the system/core/common, but with some conditions.
  * Otherwise, the testcase will broke due to them used core common instead of mock common.
  *
- * If 'CI_VERSION' constant defined, application are booted from system/Core/CodeIgniter.php
+ * If 'CI_BOOTSTRAP' constant defined, application are booted index.php
  * which means these mock global functions should not be defined.
  */
-if (defined('CI_VERSION')) {
+if (defined('CI_BOOTSTRAP')) {
 	return;
 }
 

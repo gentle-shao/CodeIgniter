@@ -1,10 +1,11 @@
 <?php
 
+use CodeIgniter\Core\Benchmark;
 class Benchmark_test extends CI_TestCase {
 
 	public function set_up()
 	{
-		$this->benchmark = new CI_Benchmark();
+		$this->benchmark = new Benchmark();
 	}
 
 	// --------------------------------------------------------------------

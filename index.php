@@ -299,10 +299,34 @@ switch (ENVIRONMENT)
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
 /*
+ * ------------------------------------------------------
+ *  Define a constant before composer works.
+ * ------------------------------------------------------
+ */
+
+	define('CI_BOOTSTRAP', true);
+	
+/*
+ * ------------------------------------------------------
+ *  We should use a Composer autoloader.
+ * ------------------------------------------------------
+ */
+	require_once('vendor/autoload.php');
+
+/*
+ * ------------------------------------------------------
+ *  Define CodeIgniter Version.
+ * ------------------------------------------------------
+ */
+
+	define('CI_VERSION', CodeIgniter\Core\Application::VERSION);
+
+/*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *
  * And away we go...
  */
-require_once BASEPATH.'core/CodeIgniter.php';
+
+	$app = new CodeIgniter\Core\Application();
