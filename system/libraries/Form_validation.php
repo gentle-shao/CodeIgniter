@@ -46,6 +46,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/libraries/form_validation.html
  */
+
+use CodeIgniter\Core\Lang;
+
 class CI_Form_validation {
 
 	/**
@@ -54,6 +57,13 @@ class CI_Form_validation {
 	 * @var object
 	 */
 	protected $CI;
+
+	/**
+	 * Language class reference.
+	 *
+	 * @var Lang
+	 */
+	protected $lang;
 
 	/**
 	 * Validation data for the current form submission
@@ -138,6 +148,9 @@ class CI_Form_validation {
 
 		// Automatically load the form helper
 		$this->CI->load->helper('form');
+
+		// Resolve langauge class from container.
+		$this->lang = app()->get(Lang::class);
 
 		log_message('info', 'Form Validation Class Initialized');
 	}
@@ -445,7 +458,7 @@ class CI_Form_validation {
 		}
 
 		// Load the language file containing error messages
-		$this->CI->lang->load('form_validation');
+		$this->lang->load('form_validation');
 
 		// Cycle through the rules for each field and match the corresponding $validation_data item
 		foreach ($this->_field_data as $field => &$row)
@@ -796,7 +809,7 @@ class CI_Form_validation {
 				// Callable rules might not have named error messages
 				if ( ! is_string($rule))
 				{
-					$line = $this->CI->lang->line('form_validation_error_message_not_set').'(Anonymous function)';
+					$line = $this->lang->line('form_validation_error_message_not_set').'(Anonymous function)';
 				}
 				else
 				{
@@ -847,17 +860,17 @@ class CI_Form_validation {
 		{
 			return $this->_error_messages[$rule];
 		}
-		elseif (FALSE !== ($line = $this->CI->lang->line('form_validation_'.$rule)))
+		elseif (FALSE !== ($line = $this->lang->line('form_validation_'.$rule)))
 		{
 			return $line;
 		}
 		// DEPRECATED support for non-prefixed keys, lang file again
-		elseif (FALSE !== ($line = $this->CI->lang->line($rule, FALSE)))
+		elseif (FALSE !== ($line = $this->lang->line($rule, FALSE)))
 		{
 			return $line;
 		}
 
-		return $this->CI->lang->line('form_validation_error_message_not_set').'('.$rule.')';
+		return $this->lang->line('form_validation_error_message_not_set').'('.$rule.')';
 	}
 
 	// --------------------------------------------------------------------
@@ -872,7 +885,7 @@ class CI_Form_validation {
 	{
 		// Do we need to translate the field name? We look for the prefix 'lang:' to determine this
 		// If we find one, but there's no translation for the string - just return it
-		if (sscanf($fieldname, 'lang:%s', $line) === 1 && FALSE === ($fieldname = $this->CI->lang->line($line, FALSE)))
+		if (sscanf($fieldname, 'lang:%s', $line) === 1 && FALSE === ($fieldname = $this->lang->line($line, FALSE)))
 		{
 			return $line;
 		}

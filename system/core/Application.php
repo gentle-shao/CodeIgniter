@@ -89,6 +89,7 @@ class Application extends Container
         $this->checkCachedResponse();
         $this->instantiateSecurity();
         $this->instantiateInput();
+        $this->instantiateLanguage();
     }
 
     /**
@@ -293,5 +294,15 @@ class Application extends Container
     protected function instantiateInput()
     {
         $this->get(Input::class);
+    }
+
+    /**
+     * Instantiate the Lang class
+     *
+     * @return void
+     */
+    protected function instantiateLanguage()
+    {
+        $this->get(Lang::class);
     }
 }

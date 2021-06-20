@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Core\Input as CI_Input;
+use CodeIgniter\Core\Lang;
 
 class Form_validation_test extends CI_TestCase {
 
@@ -13,12 +14,17 @@ class Form_validation_test extends CI_TestCase {
 		$loader = $this->getMockBuilder('CI_Loader')->setMethods(array('helper'))->getMock();
 
 		// Same applies for lang
-		$lang = $this->getMockBuilder('CI_Lang')->setMethods(array('load'))->getMock();
+		$lang = $this->getMockBuilder('CI_Lang')->setMethods(['load', 'line'])->getMock();
+		$lang->method('line')->with($this->callback(function($key){
+			return $this->lang('form_validation')[$key];
+		  }));
+		
+		app()->set(Lang::class, $lang);
 
 		$security = new Mock_Core_Security('UTF-8');
 		$input = new CI_Input($security);
 
-		$this->ci_instance_var('lang', $lang);
+		// $this->ci_instance_var('lang', $lang);
 		$this->ci_instance_var('load', $loader);
 		$this->ci_instance_var('input', $input);
 
@@ -373,6 +379,8 @@ class Form_validation_test extends CI_TestCase {
 	{
 		$prefix = '<div class="error">';
 		$suffix = '</div>';
+		$error_message = 'What a terrible error!';
+		$this->form_validation->set_message('required', $error_message);
 		$this->form_validation->set_error_delimiters($prefix, $suffix);
 		$this->form_validation->set_rules('foo', 'label', 'required');
 		$_POST = array('foo' => '');

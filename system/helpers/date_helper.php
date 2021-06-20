@@ -37,6 +37,8 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use CodeIgniter\Core\Lang;
+
 /**
  * CodeIgniter Date Helpers
  *
@@ -137,8 +139,8 @@ if ( ! function_exists('timespan'))
 	 */
 	function timespan($seconds = 1, $time = '', $units = 7)
 	{
-		$CI =& get_instance();
-		$CI->lang->load('date');
+		$lang = app(Lang::class);
+		$lang->load('date');
 
 		is_numeric($seconds) OR $seconds = 1;
 		is_numeric($time) OR $time = time();
@@ -151,7 +153,7 @@ if ( ! function_exists('timespan'))
 
 		if ($years > 0)
 		{
-			$str[] = $years.' '.$CI->lang->line($years > 1 ? 'date_years' : 'date_year');
+			$str[] = $years.' '.$lang->line($years > 1 ? 'date_years' : 'date_year');
 		}
 
 		$seconds -= $years * 31557600;
@@ -161,7 +163,7 @@ if ( ! function_exists('timespan'))
 		{
 			if ($months > 0)
 			{
-				$str[] = $months.' '.$CI->lang->line($months > 1 ? 'date_months' : 'date_month');
+				$str[] = $months.' '.$lang->line($months > 1 ? 'date_months' : 'date_month');
 			}
 
 			$seconds -= $months * 2629743;
@@ -173,7 +175,7 @@ if ( ! function_exists('timespan'))
 		{
 			if ($weeks > 0)
 			{
-				$str[] = $weeks.' '.$CI->lang->line($weeks > 1 ? 'date_weeks' : 'date_week');
+				$str[] = $weeks.' '.$lang->line($weeks > 1 ? 'date_weeks' : 'date_week');
 			}
 
 			$seconds -= $weeks * 604800;
@@ -185,7 +187,7 @@ if ( ! function_exists('timespan'))
 		{
 			if ($days > 0)
 			{
-				$str[] = $days.' '.$CI->lang->line($days > 1 ? 'date_days' : 'date_day');
+				$str[] = $days.' '.$lang->line($days > 1 ? 'date_days' : 'date_day');
 			}
 
 			$seconds -= $days * 86400;
@@ -197,7 +199,7 @@ if ( ! function_exists('timespan'))
 		{
 			if ($hours > 0)
 			{
-				$str[] = $hours.' '.$CI->lang->line($hours > 1 ? 'date_hours' : 'date_hour');
+				$str[] = $hours.' '.$lang->line($hours > 1 ? 'date_hours' : 'date_hour');
 			}
 
 			$seconds -= $hours * 3600;
@@ -209,7 +211,7 @@ if ( ! function_exists('timespan'))
 		{
 			if ($minutes > 0)
 			{
-				$str[] = $minutes.' '.$CI->lang->line($minutes > 1 ? 'date_minutes' : 'date_minute');
+				$str[] = $minutes.' '.$lang->line($minutes > 1 ? 'date_minutes' : 'date_minute');
 			}
 
 			$seconds -= $minutes * 60;
@@ -217,7 +219,7 @@ if ( ! function_exists('timespan'))
 
 		if (count($str) === 0)
 		{
-			$str[] = $seconds.' '.$CI->lang->line($seconds > 1 ? 'date_seconds' : 'date_second');
+			$str[] = $seconds.' '.$lang->line($seconds > 1 ? 'date_seconds' : 'date_second');
 		}
 
 		return implode(', ', $str);
@@ -532,7 +534,7 @@ if ( ! function_exists('timezone_menu'))
 	function timezone_menu($default = 'UTC', $class = '', $name = 'timezones', $attributes = '')
 	{
 		$CI =& get_instance();
-		$CI->lang->load('date');
+		$lang->load('date');
 
 		$default = ($default === 'GMT') ? 'UTC' : $default;
 
@@ -548,7 +550,7 @@ if ( ! function_exists('timezone_menu'))
 		foreach (timezones() as $key => $val)
 		{
 			$selected = ($default === $key) ? ' selected="selected"' : '';
-			$menu .= '<option value="'.$key.'"'.$selected.'>'.$CI->lang->line($key)."</option>\n";
+			$menu .= '<option value="'.$key.'"'.$selected.'>'.$lang->line($key)."</option>\n";
 		}
 
 		return $menu.'</select>';

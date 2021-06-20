@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Core\Lang;
+
 class Lang_test extends CI_TestCase {
 
 	protected $lang;
@@ -9,7 +11,7 @@ class Lang_test extends CI_TestCase {
 		$loader_cls = $this->ci_core_class('load');
 		$this->ci_instance_var('load', new $loader_cls);
 		$cls = $this->ci_core_class('lang');
-		$this->lang = new $cls;
+		$this->lang = new Lang;
 	}
 
 	// --------------------------------------------------------------------
