@@ -26,7 +26,7 @@ function autoload($class)
 		'Model',
 		'Output',
 		'Router',
-		'Security',
+		// 'Security',
 		'URI',
 		'Utf8'
 	);

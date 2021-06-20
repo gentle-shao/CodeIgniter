@@ -58,24 +58,36 @@ class Application extends Container
     protected $charset;
 
     /**
+     * Hook system of application.
+     *
+     * @var Hooks
+     */
+    protected $ext;
+
+    /**
      * Startup the application.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->ext = $this->get(Hooks::class);
-
         $this->setExceptionHandler();
         $this->loadEnvironmentVariables();
         $this->setSubClassPrefix();
         $this->startTimer();
         $this->instantiateConfiguration();
+
+        $this->ext = $this->get(Hooks::class);
+        $this->ext->call_hook('pre_system');
+
         $this->charset = $this->configureCharsetStuff();
         $this->instantiateUnicode();
         $this->instantiateURI();
+        $this->instantiateRouter();
+        $this->instantiateOutput();
 
-        $this->ext->call_hook('pre_system');
+        $this->checkCachedResponse();
+        $this->loadSecuritySupport();
     }
 
     /**
@@ -221,5 +233,54 @@ class Application extends Container
     protected function instantiateURI()
     {
         $this->get(URI::class);
+    }
+
+    /**
+     * Instantiate the Router class
+     *
+     * @return void
+     */
+    protected function instantiateRouter()
+    {
+        $this->get(Router::class);
+    }
+
+    /**
+     * Instantiate the Output class
+     *
+     * @return void
+     */
+    protected function instantiateOutput()
+    {
+        $this->get(Output::class);
+    }
+
+    /**
+     * Is there a valid cache file? If so, we're done...
+     *
+     * @return void
+     */
+    protected function checkCachedResponse()
+    {
+        $noCacheOverride = $this->ext->call_hook('cache_override') === FALSE;
+
+        $config = $this->get(Config::class);
+        $uri = $this->get(Uri::class);
+
+        $cacheDetected = $this->get(Output::class)->_display_cache($config, $uri);
+
+        if ($noCacheOverride && $cacheDetected) {
+            exit;
+        }
+    }
+
+    /**
+     * Load the security class for xss and csrf support
+     *
+     * @return void
+     */
+    protected function loadSecuritySupport()
+    {
+        $this->make(Security::class, ['charset' => $this->charset]);
     }
 }

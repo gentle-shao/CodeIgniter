@@ -1,6 +1,8 @@
 <?php
 
-class Mock_Core_Security extends CI_Security {
+use CodeIgniter\Core\Security;
+
+class Mock_Core_Security extends Security {
 
 	public function csrf_set_cookie()
 	{

@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Core\Output;
+
 class Output_test extends CI_TestCase {
 
 	public $output;
@@ -18,7 +20,7 @@ class Output_test extends CI_TestCase {
 		</html>
 HTML;
 		$this->ci_set_config('charset', 'UTF-8');
-		$output = $this->ci_core_class('output');
+		$output = new Output;
 		$this->output = new $output();
 	}
 

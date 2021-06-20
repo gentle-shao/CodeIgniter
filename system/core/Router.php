@@ -35,7 +35,8 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+namespace CodeIgniter\Core;
 
 /**
  * Router Class
@@ -48,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/general/routing.html
  */
-class CI_Router {
+class Router {
 
 	/**
 	 * CI_Config class object
@@ -118,13 +119,14 @@ class CI_Router {
 	 *
 	 * Runs the route mapping function.
 	 *
-	 * @param	array	$routing
-	 * @return	void
+	 * @param null $routing
+	 * @param Config $config
+	 * @param URI $uri
 	 */
-	public function __construct($routing = NULL)
+	public function __construct($routing = NULL, Config $config, URI $uri)
 	{
-		$this->config =& load_class('Config', 'core');
-		$this->uri =& load_class('URI', 'core');
+		$this->config = $config;
+		$this->uri = $uri;
 
 		$this->enable_query_strings = ( ! is_cli() && $this->config->item('enable_query_strings') === TRUE);
 

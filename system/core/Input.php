@@ -103,7 +103,7 @@ class CI_Input {
 	 *
 	 * @return	void
 	 */
-	public function __construct(CI_Security &$security)
+	public function __construct(CodeIgniter\Core\Security &$security)
 	{
 		$this->security = $security;
 		log_message('info', 'Input Class Initialized');

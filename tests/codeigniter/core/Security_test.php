@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Core\Security;
+
 class Security_test extends CI_TestCase {
 
 	public function set_up()
@@ -22,7 +24,7 @@ class Security_test extends CI_TestCase {
 	{
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 
-		$this->assertInstanceOf('CI_Security', $this->security->csrf_verify());
+		$this->assertInstanceOf(Security::class, $this->security->csrf_verify());
 	}
 
 	// --------------------------------------------------------------------
@@ -44,7 +46,7 @@ class Security_test extends CI_TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$_POST[$this->security->csrf_token_name] = $this->security->csrf_hash;
 
-		$this->assertInstanceOf('CI_Security', $this->security->csrf_verify());
+		$this->assertInstanceOf(Security::class, $this->security->csrf_verify());
 	}
 
 	// --------------------------------------------------------------------
