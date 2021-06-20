@@ -35,7 +35,8 @@
  * @since	Version 2.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+namespace CodeIgniter\Core;
 
 /**
  * Utf8 Class
@@ -48,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/libraries/utf8.html
  */
-class CI_Utf8 {
+class Utf8 {
 
 	/**
 	 * Class constructor

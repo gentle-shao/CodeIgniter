@@ -3,6 +3,7 @@
 /**
  * @runTestsInSeparateProcesses
  */
+use CodeIgniter\Core\Utf8 as CI_Utf8;
 class Utf8_test extends CI_TestCase {
 
 	public function test___constructUTF8_ENABLED()

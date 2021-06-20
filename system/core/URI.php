@@ -35,7 +35,8 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+namespace CodeIgniter\Core;
 
 /**
  * URI Class
@@ -48,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/libraries/uri.html
  */
-class CI_URI {
+class URI {
 
 	/**
 	 * List of cached URI segments
@@ -94,9 +95,11 @@ class CI_URI {
 	/**
 	 * Class constructor
 	 *
+	 * @param Config $config
+	 *
 	 * @return	void
 	 */
-	public function __construct(CI_Config $config)
+	public function __construct(Config $config)
 	{
 		$this->config = $config;
 

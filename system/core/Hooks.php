@@ -35,7 +35,8 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+namespace CodeIgniter\Core;
 
 /**
  * Hooks Class
@@ -48,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/general/hooks.html
  */
-class CI_Hooks {
+class Hooks {
 
 	/**
 	 * Determines whether hooks are enabled
@@ -83,10 +84,10 @@ class CI_Hooks {
 	/**
 	 * Class constructor
 	 *
-	 * @param	CI_Config	$config
+	 * @param	Config	$config
 	 * @return	void
 	 */
-	public function __construct(CI_Config $config)
+	public function __construct(Config $config)
 	{
 		log_message('info', 'Hooks Class Initialized');
 

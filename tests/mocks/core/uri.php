@@ -1,7 +1,8 @@
 <?php
 
 use CodeIgniter\Core\Config;
-class Mock_Core_URI extends CI_URI {
+use CodeIgniter\Core\URI;
+class Mock_Core_URI extends URI {
 
 	public function __construct()
 	{

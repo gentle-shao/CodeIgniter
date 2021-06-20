@@ -51,17 +51,31 @@ class Application extends Container
     const VERSION = '3.2.0-dev';
 
     /**
+     * The charset of application.
+     *
+     * @var string
+     */
+    protected $charset;
+
+    /**
      * Startup the application.
      */
     public function __construct()
     {
         parent::__construct();
 
+        $this->ext = $this->get(Hooks::class);
+
         $this->setExceptionHandler();
         $this->loadEnvironmentVariables();
         $this->setSubClassPrefix();
         $this->startTimer();
         $this->instantiateConfiguration();
+        $this->charset = $this->configureCharsetStuff();
+        $this->instantiateUnicode();
+        $this->instantiateURI();
+
+        $this->ext->call_hook('pre_system');
     }
 
     /**
@@ -136,12 +150,76 @@ class Application extends Container
         $config = $this->get(Config::class);
 
         // Do we have any manually set config items in the index.php file?
-        if (isset($assign_to_config) && is_array($assign_to_config))
-        {
-            foreach ($assign_to_config as $key => $value)
-            {
+        if (isset($assign_to_config) && is_array($assign_to_config)) {
+            foreach ($assign_to_config as $key => $value) {
                 $config->set_item($key, $value);
             }
         }
+    }
+
+    /**
+     * Important charset-related stuff
+     * 
+     * Configure mbstring and/or iconv if they are enabled
+     * and set MB_ENABLED and ICONV_ENABLED constants, so
+     * that we don't repeatedly do extension_loaded() or
+     * function_exists() calls.
+     *
+     * Note: UTF-8 class depends on this. It used to be done
+     * in it's constructor, but it's _not_ class-specific.
+     *
+     * @return string
+     */
+    protected function configureCharsetStuff()
+    {
+        $charset = strtoupper(config_item('charset'));
+        ini_set('default_charset', $charset);
+
+        if (extension_loaded('mbstring')) {
+            // mbstring.internal_encoding is deprecated starting with PHP 5.6
+            // and it's usage triggers E_DEPRECATED messages.
+            @ini_set('mbstring.internal_encoding', $charset);
+            // This is required for mb_convert_encoding() to strip invalid characters.
+            // That's utilized by CI_Utf8, but it's also done for consistency with iconv.
+            mb_substitute_character('none');
+        }
+
+        // There's an ICONV_IMPL constant, but the PHP manual says that using
+        // iconv's predefined constants is "strongly discouraged".
+        if (extension_loaded('iconv'))
+        {
+            define('ICONV_ENABLED', TRUE);
+            // iconv.internal_encoding is deprecated starting with PHP 5.6
+            // and it's usage triggers E_DEPRECATED messages.
+            @ini_set('iconv.internal_encoding', $charset);
+        } else {
+            define('ICONV_ENABLED', FALSE);
+        }
+
+        if (is_php('5.6')) {
+            ini_set('php.internal_encoding', $charset);
+        }
+
+        return $charset;
+    }
+
+    /**
+     * Instantiate the UTF-8 class
+     *
+     * @return void
+     */
+    protected function instantiateUnicode()
+    {
+        $this->make(Utf8::class, ['charset' => $this->charset]);
+    }
+
+    /**
+     * Instantiate the URI class
+     *
+     * @return void
+     */
+    protected function instantiateURI()
+    {
+        $this->get(URI::class);
     }
 }
