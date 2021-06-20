@@ -48,6 +48,8 @@
  * @link		https://codeigniter.com/userguide3/
  */
 
+use CodeIgniter\Container\Container;
+
 // ------------------------------------------------------------------------
 	
 if ( ! function_exists('is_php'))
@@ -69,6 +71,28 @@ if ( ! function_exists('is_php'))
 		}
 
 		return $_is_php[$version];
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('app'))
+{
+	/**
+	 * Get the global service container.
+	 *
+	 * @param null $name
+	 * @param array $parameters
+	 *
+	 * @return Container
+	 */
+	function app($name = null, array $parameters = [])
+	{
+		if (is_null($name)) {
+			return Container::getInstance();
+		}
+
+		return Container::getInstance()->make($name, $parameters);
 	}
 }
 

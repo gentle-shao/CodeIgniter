@@ -38,7 +38,7 @@
 
 namespace CodeIgniter\Core;
 
-use DI\Container;
+use CodeIgniter\Container\Container;
 use Dotenv\Dotenv;
 
 class Application extends Container
