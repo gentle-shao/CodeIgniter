@@ -79,7 +79,7 @@ if ( ! function_exists('is_php'))
 if ( ! function_exists('app'))
 {
 	/**
-	 * Get the global service container.
+	 * Get the globally available service container.
 	 *
 	 * @param null $name
 	 * @param array $parameters
@@ -93,6 +93,24 @@ if ( ! function_exists('app'))
 		}
 
 		return Container::getInstance()->make($name, $parameters);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('resolve'))
+{
+	/**
+	 * Resolve a source from container.
+	 *
+	 * @param string $name
+	 * @param array $parameters
+	 *
+	 * @return Container
+	 */
+	function resolve($name, array $parameters = [])
+	{
+		return app($name, $parameters);
 	}
 }
 
