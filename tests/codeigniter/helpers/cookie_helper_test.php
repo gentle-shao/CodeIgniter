@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Core\Input as CI_Input;
+
 class Cookie_helper_test extends CI_TestCase {
 
 	public function set_up()
@@ -29,7 +31,6 @@ class Cookie_helper_test extends CI_TestCase {
 		$_COOKIE['foo'] = 'bar';
 
 		$security = new Mock_Core_Security('UTF-8');
-		$input_cls = $this->ci_core_class('input');
 		$this->ci_instance_var('input', new CI_Input($security));
 
 		$this->assertEquals('bar', get_cookie('foo', FALSE));

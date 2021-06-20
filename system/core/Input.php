@@ -35,7 +35,8 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+namespace CodeIgniter\Core;
 
 /**
  * Input Class
@@ -48,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/libraries/input.html
  */
-class CI_Input {
+class Input {
 
 	/**
 	 * IP address of the current user
@@ -101,9 +102,11 @@ class CI_Input {
 	 * Determines whether to globally enable the XSS processing
 	 * and whether to allow the $_GET array.
 	 *
+	 * @param Security $security
+	 *
 	 * @return	void
 	 */
-	public function __construct(CodeIgniter\Core\Security &$security)
+	public function __construct(Security &$security)
 	{
 		$this->security = $security;
 		log_message('info', 'Input Class Initialized');

@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Core\Input as CI_Input;
+
 class Input_test extends CI_TestCase {
 
 	public function set_up()

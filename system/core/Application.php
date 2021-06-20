@@ -87,7 +87,8 @@ class Application extends Container
         $this->instantiateOutput();
 
         $this->checkCachedResponse();
-        $this->loadSecuritySupport();
+        $this->instantiateSecurity();
+        $this->instantiateInput();
     }
 
     /**
@@ -279,8 +280,18 @@ class Application extends Container
      *
      * @return void
      */
-    protected function loadSecuritySupport()
+    protected function instantiateSecurity()
     {
-        $this->make(Security::class, ['charset' => $this->charset]);
+        $this->set(Security::class, $this->make(Security::class, ['charset' => $this->charset]));
+    }
+
+    /**
+     * Instantiate the Input class
+     *
+     * @return void
+     */
+    protected function instantiateInput()
+    {
+        $this->get(Input::class);
     }
 }
